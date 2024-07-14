@@ -10,12 +10,12 @@
 
 @font-face {
     font-family: "NeueWorld";
-    src: url('../../public/fonts/PPNeueWorld-Regular.otf');
+    src: url('/fonts/PPNeueWorld-Regular.otf');
   }
   
   @font-face {
     font-family: "NeueMontreal";
-    src: url('../../public/fonts/PPNeueMontreal-Regular.ttf');
+    src: url('/fonts/PPNeueMontreal-Regular.ttf');
 }
 
 .lineMask p{

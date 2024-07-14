@@ -23,25 +23,36 @@ const Landing = () => {
   const [visible, setVisible] = useState(true);
   const lenis = useLenis(({ scroll }) => {});
 
+  useEffect(() => {
+    if (visible) {
+      document.getElementById("hidden1").style.display = "none";
+      document.getElementById("hidden2").style.display = "none";
+    } else {
+      document.getElementById("hidden1").style.display = "";
+      document.getElementById("hidden2").style.display = "";
+    }
+  });
+    
+
   return (
     <ReactLenis root> 
-    
         {visible && (
-        <div className="bg-black z-50">
+        <div className="w-full h-[100%] bg-black z-50 touch-none overflow-hidden">
           <div className="flex h-dvh justify-center items-center text-white">
             <CountUp end={100} duration={2} suffix='%' onEnd={() => setVisible(false)} />
           </div>
         </div>
       )}
 
-        <div className="relative w-full h-screen overflow-hidden">
+        <div id="hidden1" className="relative w-full h-dvh overflow-hidden">
           <div className="flex items-center flex-col gap-[20vw] bottom-0 text-white">
             <MaskText phrases={phrases}/>
           </div>
           <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander.jpeg?alt=media" 
               className="sticky object-cover right-0 w-full h-screen" draggable="false" />
         </div>
-        <div className="relative w-full h-screen overflow-hidden">
+
+        <div id="hidden2" className="relative w-full h-dvh overflow-hidden">
           <div className="flex items-center flex-col gap-[20vw] bottom-0 text-white">
               <MaskTextNoDelay phrases={phrases1}/>
             </div>
@@ -59,7 +70,7 @@ export function MaskText({phrases}) {
 
     const animation = {
       initial: {y: "100%"},
-      enter: i => ({y: "0", transition: {duration: 0.75, ease: [0.33, 1, 0.68, 1],  delay: 0.75 + 0.125 * i}})
+      enter: i => ({y: "0", transition: {duration: 0.75, ease: [0.33, 1, 0.68, 1],  delay: 0.5 + 0.125 * i}})
     }
   
     const { ref, inView, entry } = useInView({
