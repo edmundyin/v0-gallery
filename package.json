@@ -13,6 +13,7 @@
     "framer-motion": "^11.3.2",
     "lenis": "^1.1.6",
     "react": "^18.3.1",
+    "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
     "react-intersection-observer": "^9.13.0",
     "react-router-dom": "^6.24.1"

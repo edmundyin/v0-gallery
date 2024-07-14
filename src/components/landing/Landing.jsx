@@ -1,9 +1,10 @@
 'use client'
-import React from 'react';
-import { delay, easeIn, easeInOut, motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { delay, easeIn, easeInOut, motion, useTime} from 'framer-motion';
 import { useScroll } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ReactLenis, useLenis } from 'lenis/react'
+import CountUp, { useCountUp } from 'react-countup';
 
 const phrases = [
   "where performance converges with fashion",
@@ -11,7 +12,6 @@ const phrases = [
   "we present to you, vzero.",
   "by xander & tomoi"
 ]
-
 const phrases1 = [
   "based in San Diego",
   "manufactured in Los Angeles",
@@ -20,22 +20,33 @@ const phrases1 = [
 
 const Landing = () => {
 
-    const lenis = useLenis(({ scroll }) => {
-    });
+  const [visible, setVisible] = useState(true);
+  const lenis = useLenis(({ scroll }) => {});
 
-    return (
+  return (
     <ReactLenis root> 
+    
+        {visible && (
+        <div className="bg-black z-50">
+          <div className="flex h-dvh justify-center items-center text-white">
+            <CountUp end={100} duration={2} suffix='%' onEnd={() => setVisible(false)} />
+          </div>
+        </div>
+      )}
+
         <div className="relative w-full h-screen overflow-hidden">
           <div className="flex items-center flex-col gap-[20vw] bottom-0 text-white">
             <MaskText phrases={phrases}/>
           </div>
-          <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander.jpeg?alt=media" className="sticky right-0 overflow-hidden w-full h-auto ease-in-out" draggable="false" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander.jpeg?alt=media" 
+              className="sticky object-cover right-0 w-full h-screen" draggable="false" />
         </div>
-        <div className="relative w-full h-screen">
+        <div className="relative w-full h-screen overflow-hidden">
           <div className="flex items-center flex-col gap-[20vw] bottom-0 text-white">
               <MaskTextNoDelay phrases={phrases1}/>
             </div>
-            <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander2.jpeg?alt=media" className="object-cover sticky w-full h-screen" draggable="false"/>
+            <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander2.jpeg?alt=media" 
+                className="object-cover sticky w-full h-screen" draggable="false"/>
         </div>
     </ReactLenis>
     );
