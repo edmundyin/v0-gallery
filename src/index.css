@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body{
+        overflow-x: hidden;
+    } 
+}
+
+@font-face {
+    font-family: "NeueWorld";
+    src: url('../../public/fonts/PPNeueWorld-Regular.otf');
+  }
+  
+  @font-face {
+    font-family: "NeueMontreal";
+    src: url('../../public/fonts/PPNeueMontreal-Regular.ttf');
+}
+
+.lineMask p{
+    margin: 0px;
+    font-weight: 700;
+  }
