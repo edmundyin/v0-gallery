@@ -1,6 +1,6 @@
 'use client'
-import React, { useEffect, useState } from 'react';
-import { delay, easeIn, easeInOut, motion, useTime} from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { delay, easeIn, easeInOut, motion, useTime, useTransform} from 'framer-motion';
 import { useScroll } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ReactLenis, useLenis } from 'lenis/react'
@@ -18,53 +18,70 @@ const phrases1 = [
   "fabrics and cotton sourced from Japan"
 ]
 
+const phrases2 = [
+  "santee collection: 8/28",
+  "instagram",
+  "website"
+]
+
 const Landing = () => {
 
   const [visible, setVisible] = useState(true);
   const lenis = useLenis(({ scroll }) => {});
 
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end end'],
+  });
+
+  const scale025 = useTransform(scrollYProgress, [0,1], [1,0.25]);
+
   useEffect(() => {
     if (visible) {
       document.getElementById("hidden1").style.display = "none";
       document.getElementById("hidden2").style.display = "none";
+      // document.getElementById("hidden3").style.display = "none";
     } else {
       document.getElementById("hidden1").style.display = "";
       document.getElementById("hidden2").style.display = "";
+      // document.getElementById("hidden3").style.display = "";
     }
   });
     
 
   return (
     <ReactLenis root> 
-        {visible && (
-        <div className="w-full h-[100%] bg-black z-50 touch-none overflow-hidden">
-          <div className="flex h-dvh justify-center items-center text-white">
-            <CountUp end={100} duration={2} suffix='%' onEnd={() => setVisible(false)} />
-          </div>
-        </div>
-      )}
-
-        <div id="hidden1" className="relative w-full h-dvh overflow-hidden">
-          <div className="flex items-center flex-col gap-[20vw] bottom-0 text-white">
-            <MaskText phrases={phrases}/>
-          </div>
-          <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander.jpeg?alt=media" 
-              className="sticky object-cover right-0 w-full h-screen" draggable="false" />
-        </div>
-
-        <div id="hidden2" className="relative w-full h-dvh overflow-hidden">
-          <div className="flex items-center flex-col gap-[20vw] bottom-0 text-white">
-              <MaskTextNoDelay phrases={phrases1}/>
+      {visible && (
+            <div className="w-full h-[100%] bg-black z-50 touch-none overflow-hidden">
+              <div className="flex h-dvh justify-center items-center text-white">
+                <CountUp end={100} duration={2} suffix='%' onEnd={() => setVisible(false)} />
+              </div>
             </div>
-            <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander2.jpeg?alt=media" 
-                className="object-cover sticky w-full h-screen" draggable="false"/>
-        </div>
+          )}        
+        
+          <div id="hidden1" className="sticky top-0 w-full h-dvh overflow-hidden placeholder-transparent">
+            <div className="flex items-center flex-col gap-[20vw] bottom-0 text-white">
+              <MaskText phrases={phrases}/>
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander1-min.jpeg?alt=media" 
+                className="object-cover right-0 w-full h-screen" draggable="false" />
+          </div>
+
+          <div id="hidden2" className="sticky w-full h-dvh overflow-hidden">
+            <div className="flex items-center flex-col gap-[20vw] bottom-0 text-white">
+                <MaskTextNoDelay phrases={phrases1}/>
+              </div>
+              <img src="https://firebasestorage.googleapis.com/v0/b/vzerogallery.appspot.com/o/images%2Fxander2-min.jpeg?alt=media" 
+                  className="object-cover w-full h-screen" draggable="false"/>
+          </div>
+          
+
     </ReactLenis>
     );
 };
 
 export default Landing;
-
 
 export function MaskText({phrases}) {
 
@@ -115,4 +132,3 @@ export function MaskTextNoDelay({phrases}) {
       </div>
     )
 }
-
