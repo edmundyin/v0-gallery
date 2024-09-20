@@ -15,7 +15,7 @@ const phrases = [
 const phrases1 = [
   "based in San Diego",
   "manufactured in Los Angeles",
-  "fabrics and cotton sourced from Japan"
+  "fabrics and materials sourced from Japan"
 ]
 
 const phrases2 = [
